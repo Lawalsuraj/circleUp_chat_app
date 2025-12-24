@@ -11,6 +11,9 @@ import { useEffect } from "react";
 import { useAuthStore } from "./store/AuthStore";
 import Home from "./pages/Home";
 import CreatePost from "./components/CreatePost";
+import PostDetails from "./pages/PostDetails";
+import EditPost from "./pages/EditPost";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
 
@@ -22,9 +25,9 @@ function App() {
       checkAuth();
   }, []); 
 
-  useEffect(() => {
-      console.log("User from Zustand:", user);
-  }, [user]); 
+  // useEffect(() => {
+  //     console.log("User from Zustand:", user);
+  // }, [user]); 
 
 
   return (
@@ -42,6 +45,10 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/create/post" element={<CreatePost/>}/>
+        <Route path="/edit/post/:id" element={<EditPost/>}/>
+        <Route path="/edit/profile" element={<EditProfile/>}/>
+
+        <Route path ="/post/:id" element={<PostDetails/>}/>
     
       </Route>
     </Routes>

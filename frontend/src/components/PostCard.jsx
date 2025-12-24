@@ -1,34 +1,72 @@
 import React, { useState, useEffect } from "react";
+import { Await, Link, useNavigate } from "react-router-dom";
+
+import { io } from "socket.io-client";
+
+
 import {
   FaHeart,
   FaRegHeart,
   FaComment,
   FaUserPlus,
-  FaUserCheck
+  FaUserCheck,
+  FaEdit,
+  FaTrash
 } from "react-icons/fa";
 
 import { useAuthStore } from "../store/AuthStore";
 import API from "../utils/API";
 
 const PostCard = ({ post }) => {
+
   const { user } = useAuthStore();
+  const socket = io("http://localhost:5500");
 
   const [likes, setLikes] = useState(post.likes?.length || 0);
   const [isLiked, setIsLiked] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
+  const [commentsCount, setCommentsCount] = useState(0);
+
+  // console.log(post)
+
+   useEffect(() => {
+       const fetchComments = async () => {
+         const res = await API.get(`/api/post/comment/${post._id}`);
+         setCommentsCount(res.data.data.length);
+        //  console.log(res.data.data.length)
+       };
+   
+       fetchComments();
+     }, [user]);
+
+       socket.on("post:liked", (data) => {
+        console.log("Someone liked a post:", data);
+      });
+
+      socket.on("comment:created", (data) => {
+        console.log("New comment:", data);
+      });
+
+      socket.on("post:created", (data) => {
+        console.log("New post:", data);
+      });
+
 
   // CHECK IF USER HAS LIKED
   useEffect(() => {
     setIsLiked(post.likes?.includes(user?._id));
   }, [post.likes, user?._id]);
 
-
+  // console.log(post)
   useEffect(() => {
     if (user && post.userId) {
-      setIsFollowing(user.followings?.includes(post.userId._id));
-      console.log(isFollowing)
+      setIsFollowing(user.followings?.includes(post?.userId?._id));
     }
-  }, [user, post.userId._id]);
+  }, [user, post.userId]);
+
+
+  const navigate = useNavigate();
+  const goToPost = () =>navigate(`/post/${post?._id}`)
 
   // HANDLE LIKE
   const handleLike = async () => {
@@ -63,7 +101,7 @@ const PostCard = ({ post }) => {
     
       <div className="flex items-center gap-3 mb-3">
         <img
-          src={`http://10.176.148.139:5500/${post.userId?.profilePic || "default.jpg"}`}
+          src={`http://10.162.135.139:5500/${post.userId?.profilePic || "default.jpg"}`}
           alt="profile"
           className="h-10 w-10 rounded-full object-cover"
         />
@@ -76,11 +114,10 @@ const PostCard = ({ post }) => {
         </div>
 
         {/* FOLLOW BUTTON */}
-        {user?._id !== post.userId?._id && (
+        {user?._id !== post.userId?._id ? (
           <button
-            onClick={handleFollow}
-            className="text-sm px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200 transition"
-          >
+            onClick={()=>handleFollow}
+            className="text-sm px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200 transition"  >
             {isFollowing ? (
               <span className="flex items-center gap-1 text-green-600">
                 <FaUserCheck /> Following
@@ -90,7 +127,22 @@ const PostCard = ({ post }) => {
                 <FaUserPlus /> Follow
               </span>
             )}
+          </button> 
+        ) :  (
+
+
+        <div className="flex gap-2 relative left-1 bottom-3">
+        <Link to={`/edit/post/${post._id}`}>
+          <button className="ml-auto bg-white border px-3 py-1 rounded-lg shadow-sm text-lg cursor-pointer ">
+                      <FaEdit  className="text-blue-600"/> 
           </button>
+        </Link>
+        <button className="ml-auto bg-white text-red-600 border px-3 py-1 cursor-pointer rounded-lg shadow-sm text-lg  items-center gap-2">
+            <FaTrash className="text-red-600"/>
+         </button>
+        </div>
+        
+        
         )}
       </div>
 
@@ -105,7 +157,7 @@ const PostCard = ({ post }) => {
       {/* IMAGE */}
       {post.images?.length > 0 && (
         <img
-          src={`http://10.176.148.139:5500/${post.images[0]}`}
+          src={`http://10.162.135.139:5500/${post.images[0]}`}
           alt="post"
           className="rounded-lg w-full object-cover mb-3 max-h-96"
         />
@@ -124,9 +176,10 @@ const PostCard = ({ post }) => {
         </button>
 
         {/* COMMENT */}
-        <button className="flex items-center gap-2 cursor-pointer hover:text-blue-500 transition">
+        <button onClick={goToPost} className="flex items-center gap-2 cursor-pointer hover:text-blue-500 transition">
           <FaComment />
-          <span>{post.comments?.length || 0}</span>
+        
+          <span>{commentsCount}</span>
         </button>
 
       </div>

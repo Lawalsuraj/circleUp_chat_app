@@ -3,6 +3,7 @@ import { FaUser, FaEdit } from "react-icons/fa";
 import PostCard from "../components/PostCard";
 import API from "../utils/API";
 import { useAuthStore } from "../store/AuthStore";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { user } = useAuthStore();
@@ -39,7 +40,7 @@ const Profile = () => {
           <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-2xl overflow-hidden">
             {user.profilePic ? (
               <img
-                src={`http://10.176.148.139:5500/${user.profilePic || "default.jpg"}`}
+                src={`http://10.162.135.139:5500/${user.profilePic || "default.jpg"}`}
                 alt="avatar"
                 className="w-full h-full object-cover"
               />
@@ -76,10 +77,12 @@ const Profile = () => {
           </div>
 
           {/* Edit Button */}
+         <Link to={'/edit/profile'}>
           <button className="ml-auto bg-white border px-3 py-1 rounded-lg shadow-sm text-sm flex items-center gap-2">
-            <FaEdit />
-            Edit
-          </button>
+              <FaEdit />
+              Edit
+            </button>
+          </Link>
         </div>
 
         <div className="border-b mb-6"></div>

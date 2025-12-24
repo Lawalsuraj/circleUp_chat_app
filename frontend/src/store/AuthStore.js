@@ -74,7 +74,7 @@ export const useAuthStore = create(
       checkAuth: async () => {
         try {
           const res = await API.get("api/auth/me");
-          console.log(res.data)
+          // console.log(res.data)
           set({ user: res.data, isLoggedIn: true });
         } catch (err) {
           set({ user: null, isLoggedIn: false });
