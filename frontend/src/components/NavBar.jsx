@@ -72,7 +72,7 @@ const NavBar = () => {
           
 
           <>
-            <Link to="/auth/login" className="btn bg-linear-to-r from-blue-600 to-pink-600 border-none text-white mr-2">
+            <Link to="/auth/login" className="btn btn-primary  border-none text-white mr-2">
               Login
             </Link>
             <Link to="/auth/register" className="btn btn-outline btn-primary">

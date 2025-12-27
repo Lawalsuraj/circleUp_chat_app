@@ -28,7 +28,8 @@ const Register = () => {
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("confirmPassword", data.confirmPassword);
-    formData.append("image", data.image);
+    formData.append("profilePic", data.image);
+    
 
     const result = await registerUser(formData);
 

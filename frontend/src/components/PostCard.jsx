@@ -101,13 +101,13 @@ const PostCard = ({ post }) => {
     
       <div className="flex items-center gap-3 mb-3">
         <img
-          src={`http://10.162.135.139:5500/${post.userId?.profilePic || "default.jpg"}`}
+          src={post.userId?.profilePic || "default.jpg"}
           alt="profile"
           className="h-10 w-10 rounded-full object-cover"
         />
 
         <div className="flex-1">
-          <p className="font-semibold">{post.userId?.name}</p>
+          <p className="font-semibold cursor-pointer"><Link to={`/profile/${post.userId._id}`}>{post.userId?.name}</Link></p>
           <p className="text-xs text-gray-500">
             {new Date(post.createdAt).toLocaleString()}
           </p>
@@ -157,7 +157,7 @@ const PostCard = ({ post }) => {
       {/* IMAGE */}
       {post.images?.length > 0 && (
         <img
-          src={`http://10.162.135.139:5500/${post.images[0]}`}
+          src={post.images[0] || "default.jpg" }
           alt="post"
           className="rounded-lg w-full object-cover mb-3 max-h-96"
         />

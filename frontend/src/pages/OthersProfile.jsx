@@ -5,7 +5,7 @@ import API from "../utils/API";
 import { useAuthStore } from "../store/AuthStore";
 import { Link } from "react-router-dom";
 
-const Profile = () => {
+const OthersProfile = () => {
   const { user } = useAuthStore();
   const [posts, setPosts] = useState([]);
 
@@ -100,4 +100,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default OthersProfile;

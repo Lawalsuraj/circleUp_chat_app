@@ -14,6 +14,7 @@ import CreatePost from "./components/CreatePost";
 import PostDetails from "./pages/PostDetails";
 import EditPost from "./pages/EditPost";
 import EditProfile from "./pages/EditProfile";
+import OthersProfile from "./pages/OthersProfile"
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
       <Route element={<MainLayout />}>
         <Route path="/" element={<LandingPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/:id" element={< OthersProfile/>} />
         <Route path="/home" element={<Home />} />
         <Route path="/create/post" element={<CreatePost/>}/>
         <Route path="/edit/post/:id" element={<EditPost/>}/>

@@ -26,13 +26,15 @@ const PostDetails = () => {
 
   // FETCH COMMENTS (Separate Collection)
 
-  useEffect(() => {
-    const fetchComments = async () => {
+  const fetchComments = async () => {
       const res = await API.get(`/api/post/comment/${id}`);
       setComments(res.data.data);
       // console.log(res.data.data)
 
     };
+
+  useEffect(() => {
+    
 
     fetchComments();
   }, [id]);
@@ -51,6 +53,7 @@ const PostDetails = () => {
 
       setComments(() => [res.data ]); 
       setCommentText("");
+      fetchComments();
       setLoading(false);
 
     } catch (error) {
@@ -102,7 +105,7 @@ const PostDetails = () => {
                 >
                   <div className="flex gap-2">
                       <img   
-                      src={`http://10.162.135.139:5500/${c.userId?.profilePic || "default.jpg"}`}
+                      src={c.userId?.profilePic || "default.jpg"}
                       className="h-10 w-10 rounded-full object-cover"
                       alt="profilePic" />
                       <div>
@@ -114,7 +117,7 @@ const PostDetails = () => {
                       
                   </div>
                   <p className="font-semibold">{c.name}</p>
-                  <p className="text-sm mt-1">{c.content}</p>
+                  <p className="text-sm mt-1 ml-12">{c.content}</p>
 
                   
                 </div>
