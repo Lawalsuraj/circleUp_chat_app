@@ -20,7 +20,6 @@ import API from "../utils/API";
 const PostCard = ({ post }) => {
 
   const { user } = useAuthStore();
-  const socket = io("http://localhost:5500");
 
   const [likes, setLikes] = useState(post.likes?.length || 0);
   const [isLiked, setIsLiked] = useState(false);
@@ -39,18 +38,7 @@ const PostCard = ({ post }) => {
        fetchComments();
      }, [user]);
 
-       socket.on("post:liked", (data) => {
-        console.log("Someone liked a post:", data);
-      });
-
-      socket.on("comment:created", (data) => {
-        console.log("New comment:", data);
-      });
-
-      socket.on("post:created", (data) => {
-        console.log("New post:", data);
-      });
-
+     
 
   // CHECK IF USER HAS LIKED
   useEffect(() => {

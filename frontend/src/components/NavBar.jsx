@@ -15,7 +15,7 @@ const NavBar = () => {
   }
 
   return (
-    <div className="navbar bg-base-100 shadow-sm px-4">
+    <div className="navbar bg-base-100 shadow-sm px-4 ">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -37,7 +37,7 @@ const NavBar = () => {
           </ul>
         </div>
 
-        <Link to="/" className="btn btn-ghost normal-case text-xl flex items-center gap-2">
+        <Link to="/" className="btn btn-ghost normal-case text-xl flex items-center gap-2 max-sm:px-0">
           <FaUsers className="text-primary" /> CircleUp
         </Link>
       </div>
