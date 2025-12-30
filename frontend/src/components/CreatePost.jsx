@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import API from "../utils/API";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [images, setImages] = useState([]);
+
+  const navigate = useNavigate();
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
@@ -34,6 +37,8 @@ const CreatePost = () => {
       setContent("");
       setImages([]);
 
+      navigate("/home");
+      
     } catch (err) {
       console.log(err.response?.data || err.message);
     }

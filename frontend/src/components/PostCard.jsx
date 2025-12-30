@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Await, Link, useNavigate } from "react-router-dom";
+import {  Link, useNavigate } from "react-router-dom";
 
-import { io } from "socket.io-client";
 
 
 import {
@@ -60,6 +59,7 @@ const PostCard = ({ post }) => {
   const handleLike = async () => {
     try {
       const res = await API.post(`/api/posts/${post._id}/like`);
+      console.log(likes)
       setLikes(res.data.likes);
       setIsLiked(prev => !prev);
     } catch (err) {
@@ -75,13 +75,22 @@ const PostCard = ({ post }) => {
       } else {
         await API.post(`/api/users/${post.userId?._id}/follow`);
       }
-      
       setIsFollowing(prev => !prev);
       
     } catch (err) {
       console.log(err.response?.data || err.message);
     }
+
   };
+
+  const handleDelete = async(id)=>{
+
+    try {
+      await API.delete(`/api/deletePost/${id}`)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <div className="border p-4 rounded-lg shadow-sm bg-white">
@@ -104,8 +113,8 @@ const PostCard = ({ post }) => {
         {/* FOLLOW BUTTON */}
         {user?._id !== post.userId?._id ? (
           <button
-            onClick={()=>handleFollow}
-            className="text-sm px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200 transition"  >
+            onClick={handleFollow}
+            className="text-sm px-3 py-1 btn rounded-md bg-gray-100 hover:bg-gray-200 transition"  >
             {isFollowing ? (
               <span className="flex items-center gap-1 text-green-600">
                 <FaUserCheck /> Following
@@ -125,8 +134,10 @@ const PostCard = ({ post }) => {
                       <FaEdit  className="text-blue-600"/> 
           </button>
         </Link>
-        <button className="ml-auto bg-white text-red-600 border px-3 py-1 cursor-pointer rounded-lg shadow-sm text-lg  items-center gap-2">
-            <FaTrash className="text-red-600"/>
+        <button 
+          onClick={handleDelete(post._id)}
+          className="ml-auto bg-white text-red-600 border px-3 py-1 cursor-pointer rounded-lg shadow-sm text-lg  items-center gap-2">
+              <FaTrash className="text-red-600"/>
          </button>
         </div>
         

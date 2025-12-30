@@ -11,22 +11,27 @@ export const useAuthStore = create(
       loading: false,
       error: null,
 
+      setUser: (userData) => set({ 
+        user: userData, 
+        isLoggedIn: true 
+      }),
+
       // REGISTER
       registerUser: async (formData) => {
+        
         set({ loading: true, error: null });
 
         try {
           const res = await registerUser(formData);
 
-          
-          const user = res.data?.data?.[0];
+          const user = res.data?.[0];
 
           set({
             user,
             isLoggedIn: true,
           });
 
-          return { success: true };
+          return { success: true, user};
         } catch (err) {
           set({
             error: err.response?.data?.message || "Registration failed",

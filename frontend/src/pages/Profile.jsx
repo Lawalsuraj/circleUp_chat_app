@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { FaUser, FaEdit } from "react-icons/fa";
+import { FaUser, FaEdit, FaAngleLeft } from "react-icons/fa";
 import PostCard from "../components/PostCard";
 import API from "../utils/API";
 import { useAuthStore } from "../store/AuthStore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { user } = useAuthStore();
   const [posts, setPosts] = useState([]);
+
+  const navigate = useNavigate();
 
   // Fetch user posts
   useEffect(() => {
@@ -34,6 +36,16 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
+
+      <div>
+         <button 
+           onClick={()=> navigate(-1)} 
+           className="btn flex items-center gap-2" >
+           <FaAngleLeft />
+           Back
+         </button>
+       </div>
+
       <div className="max-w-3xl mx-auto px-4">
     
         <div className="flex items-center gap-4 mb-4">
@@ -49,12 +61,12 @@ const Profile = () => {
             )}
           </div>
 
-          <div className="flex-1">
-            <div className="flex items-center gap-3">
+          <div className="flex-1 flex-col">
+            <div className="flex  ml-0 gap-0 flex-col">
               <h1 className="text-2xl font-bold text-gray-900">
                 {user.name || "No Name"}
               </h1>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm mr-2 text-gray-500">
                 {user.email || " "}
               </span>
             </div>
@@ -78,7 +90,7 @@ const Profile = () => {
 
           {/* Edit Button */}
          <Link to={'/edit/profile'}>
-          <button className="ml-auto bg-white border px-3 py-1 rounded-lg shadow-sm text-sm flex items-center gap-2">
+          <button className="ml-auto bg-white cursor-pointer border px-3 py-1 rounded-lg shadow-sm text-sm flex items-center gap-2">
               <FaEdit />
               Edit
             </button>

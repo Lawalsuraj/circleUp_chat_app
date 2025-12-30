@@ -26,7 +26,7 @@ export const registerSchema = z
       .string()
       .min(3, "Username must be at least 3 characters.")
       .max(20, "Username must not exceed 20 characters.")
-      .regex(/^[a-zA-Z0-9_]+$/, "Only letters, numbers, and _ are allowed."),
+      .regex(/^[a-zA-Z0-9_ ]+$/, "Only letters, numbers, spaces, and _ are allowed."),
 
     email: z.string().email("Invalid email address."),
 
@@ -42,4 +42,3 @@ export const registerSchema = z
     message: "Passwords do not match.",
     path: ["confirmPassword"]
   });
-

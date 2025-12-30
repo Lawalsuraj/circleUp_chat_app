@@ -9,6 +9,7 @@ const PostList = () => {
     const fetchPosts = async () => {
       try {
         const res = await API.get("/api/posts");
+        console.log(res)
         setPosts(res.data);
       } catch (err) {
         console.log(err.response?.data || err.message);
@@ -17,6 +18,8 @@ const PostList = () => {
 
     fetchPosts();
   }, []);
+
+  if(posts.length === 0) return <div className="text-7xl text-gray-500  text-center"> No Posts Availlable!!!</div>
 
   return (
     <div className="space-y-4">

@@ -17,29 +17,7 @@ const Home = () => {
         </div>
 
         {/* Sidebar - Right */}
-        <div className="flex-1 hidden lg:block">
-          <div className="card p-6 bg-base-100 shadow-lg rounded-xl w-72 flex flex-col gap-4">
-            <h2 className="font-bold text-lg mb-2">People you may know</h2>
-            <ul className="flex flex-col gap-3">
-              <li className="flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gray-300 rounded-full shrink-0"></div>
-                  <span className="wrap-break-wordbreak-words">Jane Doe</span>
-                </div>
-                <button className="btn btn-xs btn-primary">Follow</button>
-              </li>
-              <li className="flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gray-300 rounded-full shrink-0"></div>
-                  <span className="wrap-break-wordbreak-words">John Smith</span>
-                </div>
-                <button className="btn btn-xs btn-primary">Follow</button>
-              </li>
-              {/* Add more suggestions here */}
-            </ul>
-          </div>
-        </div>
-
+       
       </div>
 
       {/* Floating Create Post Button */}

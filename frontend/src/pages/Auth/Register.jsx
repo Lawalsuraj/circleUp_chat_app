@@ -11,7 +11,7 @@ const Register = () => {
   const [preview, setPreview] = useState(null);
   const navigate = useNavigate();
 
-  const { registerUser, loading, error } = useAuthStore();
+  const { registerUser,setUser, loading, error } = useAuthStore();
 
   const {
     register,
@@ -33,8 +33,10 @@ const Register = () => {
 
     const result = await registerUser(formData);
 
+
     if (result.success) {
-      navigate("/profile");
+      setUser(result.user)
+      navigate("/home");
     }
   };
 

@@ -15,6 +15,7 @@ import PostDetails from "./pages/PostDetails";
 import EditPost from "./pages/EditPost";
 import EditProfile from "./pages/EditProfile";
 import OthersProfile from "./pages/OthersProfile"
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
 
@@ -32,17 +33,20 @@ function App() {
 
 
   return (
-    <Router>
-      <Routes>
+   <Router>
+     <Routes>
       {/* Auth pages */}
       <Route element={<AuthLayout />}>
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/register" element={<Register/>} />
       </Route>
 
+        {/* landing pages */}
+      <Route path="/" element={<MainLayout><LandingPage /> </MainLayout>} />
+
       {/* Main app pages */}
       <Route element={<MainLayout />}>
-        <Route path="/" element={<LandingPage />} />
+     <Route element={<ProtectedRoute/>} >
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/profile/:id" element={< OthersProfile/>} />
         <Route path="/home" element={<Home />} />
@@ -53,7 +57,8 @@ function App() {
         <Route path ="/post/:id" element={<PostDetails/>}/>
     
       </Route>
-    </Routes>
+     </Route>
+   </Routes>
 
     </Router>
   );
