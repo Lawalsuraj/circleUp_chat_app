@@ -85,8 +85,16 @@ const PostCard = ({ post }) => {
 
   const handleDelete = async(id)=>{
 
+    if (!window.confirm("Are you sure you want to delete this post?")) {
+    return;
+  }
+
+
+
     try {
       await API.delete(`/api/deletePost/${id}`)
+
+       window.dispatchEvent(new Event('refreshPosts'));
     } catch (error) {
       console.error(error)
     }
@@ -135,7 +143,7 @@ const PostCard = ({ post }) => {
           </button>
         </Link>
         <button 
-          onClick={handleDelete(post._id)}
+          onClick={()=>handleDelete(post._id)}
           className="ml-auto bg-white text-red-600 border px-3 py-1 cursor-pointer rounded-lg shadow-sm text-lg  items-center gap-2">
               <FaTrash className="text-red-600"/>
          </button>

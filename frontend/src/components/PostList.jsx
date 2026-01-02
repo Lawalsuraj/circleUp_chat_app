@@ -5,8 +5,8 @@ import PostCard from "./PostCard";
 const PostList = () => {
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
+
+   const fetchPosts = async () => {
       try {
         const res = await API.get("/api/posts");
         console.log(res)
@@ -16,7 +16,15 @@ const PostList = () => {
       }
     };
 
+  useEffect(() => {
+   
+
     fetchPosts();
+
+     const handleRefresh = () => fetchPosts();
+     window.addEventListener('refreshPosts', handleRefresh);
+  
+  return () => window.removeEventListener('refreshPosts', handleRefresh);
   }, []);
 
   if(posts.length === 0) return <div className="text-7xl text-gray-500  text-center"> No Posts Availlable!!!</div>

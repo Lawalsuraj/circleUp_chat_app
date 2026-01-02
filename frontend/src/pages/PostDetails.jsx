@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import API from "../utils/API";
 import PostCard from "../components/PostCard";
 import { useAuthStore } from "../store/AuthStore";
+import { FaAngleLeft } from "react-icons/fa";
 
 const PostDetails = () => {
   const { id } = useParams();
   const { user } = useAuthStore();
+  const navigate = useNavigate();
+
 
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
@@ -66,7 +69,18 @@ const PostDetails = () => {
 
   return (
     <div className="flex justify-center px-3 py-6">
+
+            <div className="flex  absolute left-0">
+                <button 
+                  onClick={()=> navigate(-1)} 
+                  className="btn flex items-center gap-2" >
+                  <FaAngleLeft />
+                  Back
+                </button>
+            </div>
+
       <div className="w-full max-w-2xl">
+
 
         {/* POST */}
         <PostCard post={post} />
