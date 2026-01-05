@@ -16,6 +16,7 @@ import EditPost from "./pages/EditPost";
 import EditProfile from "./pages/EditProfile";
 import OthersProfile from "./pages/OthersProfile"
 import ProtectedRoute from "./components/ProtectedRoute";
+import About from "./components/About";
 
 function App() {
 
@@ -55,8 +56,12 @@ function App() {
         <Route path="/edit/profile" element={<EditProfile/>}/>
 
         <Route path ="/post/:id" element={<PostDetails/>}/>
+
+      
     
       </Route>
+
+      <Route path="/about" element={<About/>}/>
      </Route>
    </Routes>
 

@@ -53,7 +53,7 @@ const OthersProfile = () => {
       <div className="max-w-3xl mx-auto px-4">
         
 
-        <div className="flex items-center gap-4 mb-4">
+        <div className="flex items-center  gap-4 mb-4">
           <div className="w-34 h-34 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-2xl overflow-hidden">
             {user.profilePic ? (
               <img
@@ -66,8 +66,8 @@ const OthersProfile = () => {
             )}
           </div>
 
-          <div className="flex-1">
-            <div className="flex items-center gap-3 flex-col">
+          <div className="flex-1 ">
+            <div className="flex  gap-3 flex-col">
               <h1 className="text-2xl font-bold text-gray-900">
                 {user.name || "No Name"}
               </h1>
